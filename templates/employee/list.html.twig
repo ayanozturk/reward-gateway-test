@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/css/employee/employee.css">
+{% endblock %}
+
+{% block body %}
+
+  {% for employee in employees %}
+    <div class="employee-box">
+      <div class="avatar">
+        {% if employee.avatar and employee.avatar != "http://httpstat.us/503" %}
+          <img src="{{ employee.avatar|escape }}"/>
+        {% else %}
+          <img src="/images/default-avatar.png"/>
+        {% endif %}
+      </div>
+
+      <div>
+        {{ employee.name|escape }}
+      </div>
+
+      <div>
+        <strong>{{ employee.title|escape }}</strong> at <strong>{{ employee.company|escape }}</strong>
+      </div>
+
+      <div>
+        {{ employee.bio|length > 50 ? employee.bio|striptags|slice(0, 50) ~ '...' : employee.bio|striptags }}
+      </div>
+    </div>
+  {% endfor %}
+
+{% endblock %}
